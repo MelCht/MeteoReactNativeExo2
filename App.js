@@ -1,12 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import * as Location from "expo-location";
 import { useEffect, useState } from 'react';
-import Meteo from "./component/todayMeteo"
+import Meteo from "./component/todayMeteo";
+import axios from "axios"
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'antiquewhite',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 export default function App() {
+  const API_URL = (lat, lon) => `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=c0526873bd2aaf4e98ead041cf09c76c&lang=fr&units=metric`
   // Récupération de la localisation de l'utilisateur (avec pop-up d'accord)
-  const [location, setlocation] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [data, setData] = useState(null)
   
   useEffect(() => {
     const getLocation = async () => {
@@ -15,38 +27,43 @@ export default function App() {
         return
       } 
       const userLocation = await Location.getCurrentPositionAsync()
-      setlocation(userLocation)
+      getMeteo(userLocation)
     }
     getLocation()
   }, [])
 
-  if (!location) {
-    return (
-      <View style={styles.container}>
-        <Text>J'ai besoin de ta location</Text>
-      </View>
-    )
-  }
+ 
   // Récupération données API
   // -> Ville
   // -> Météo du moment
   // -> Prévisions
+
+  const getMeteo = async (location) => {
+    try {
+      const response = await axios.get(API_URL(location.coords.latitude, location.coords.longitude))
+      setData(response.data)
+      setLoading(false)
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator />
+      </View>
+    )
+  }
+
   return (
     <View style={styles.container}>
       <Text>METEO</Text>
-      <Meteo
-        location={location}
-      ></Meteo>
       <StatusBar style="auto" />
+      <Meteo
+      data={data} />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
