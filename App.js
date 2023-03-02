@@ -12,6 +12,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  meteoTitle: {
+    fontSize: 20,
+    position: 'absolute',
+    top: 75,
+  }
 });
 
 export default function App() {
@@ -58,7 +63,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>METEO</Text>
+        {/* Récupération nom de la ville */}
+        <Text style={styles.meteoTitle}>Météo à {data?.city?.name}</Text>
       <StatusBar style="auto" />
       <Meteo
       data={data} />

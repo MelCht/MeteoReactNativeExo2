@@ -3,9 +3,6 @@ import { StyleSheet, Text, Image } from 'react-native';
 import { isSameDay } from "date-fns";
 
 const styles = StyleSheet.create({
-    meteoTitle: {
-      // backgroundColor: 'red',
-    },
     icon: {
       width: 150,
       height: 150
@@ -15,6 +12,7 @@ const styles = StyleSheet.create({
   export default function Meteo(props) {
     const {data} = props;
     const [meteoActuelle, setMeteoActuelle] = useState(null)
+    const [icon, setIcon] = useState()
     const getIconMeteo = (icon) => `http://openweathermap.org/img/wn/${icon}@4x.png`
 
   // Récupération données API
@@ -28,17 +26,15 @@ const styles = StyleSheet.create({
         return isSameDay(today, forecastDate)
       })
       setMeteoActuelle(todayMeteo[0])
+      setIcon(getIconMeteo(todayMeteo[0]?.weather[0].icon))
     }, [data])
 
 
     return (
     <>
-    {/* Récupération nom de la ville */}
-      <Text styles={styles.meteoTitle}>{data?.city?.name}</Text>
-      <Text>Aujourd'hui</Text>
       {/* Récupération de l'image correspondant à la météo */}
-      <Image 
-      source={{ uri: getIconMeteo(meteoActuelle.weather[0].icon) }} 
+       <Image 
+      source={{ uri: icon }} 
       style={styles.icon}
       />
       {/* Récupération température arrondie */}
