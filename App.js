@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     alignItem: 'center',
   },
   meteoTitle: {
-    fontSize: 20,
+    fontSize: 40,
+    fontWeight: 'bold',
     marginTop: '15%',
     alignSelf: 'center',
     color: '#045A57'

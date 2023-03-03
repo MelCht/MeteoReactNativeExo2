@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, ScrollView, Image} from 'react-native';
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#045A57',
+    backgroundColor: '#81acab',
     borderRadius: 50,
     marginRight: 20,
     width: 40,
