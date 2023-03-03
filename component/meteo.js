@@ -3,16 +3,19 @@ import { StyleSheet, View, Text, ScrollView, Image} from 'react-native';
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#d5851a',
+    backgroundColor: '#045A57',
     borderRadius: 50,
     marginRight: 20,
     width: 40,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   icon: {
     height: 30,
     width: 30
+  },
+  text: {
+    color: 'white'
   }
 });
 
@@ -22,8 +25,8 @@ export default function Meteo(props) {
 
   return (
     <View  style={styles.card}>
-      <Text>{prev.hour}</Text>
-      <Text>{prev.temp}°C</Text>
+      <Text style={styles.text}>{prev.hour}</Text>
+      <Text style={styles.text}>{prev.temp}°C</Text>
       <Image 
       source={{ uri: getIconMeteo(prev?.icon) }} 
       style={styles.icon}

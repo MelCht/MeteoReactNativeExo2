@@ -6,22 +6,39 @@ const styles = StyleSheet.create({
   topContainer: {
     display: 'flex',
     flexDirection: 'row',
-    height: '15%',
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: '-7%',
-    marginTop: '10%',
-    marginBottom: '10%'
   }, 
   icon: {
-      width: 150,
-      height: 150
-    },
-    temp: {
-      fontSize: 75,
-      color: '#6d440e',
-    }
-  });
+    width: 150,
+    height: 150
+  },
+  temp: {
+    fontSize: 60,
+    color: '#045A57',
+  },
+  minMax: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItem: 'center',
+    marginBottom: '3%',
+  },
+  min: {
+    backgroundColor: '#c1d5fe',
+    width: '35%',
+    textAlign: 'center',
+    borderRadius: 50
+  },
+  max: {
+    backgroundColor: '#feccc1',
+    width: '35%',
+    marginLeft: '15%',
+    textAlign: 'center',
+    borderRadius: 50
+  }
+});
   
   export default function TodayMeteo(props) {
     const {data} = props;
@@ -45,6 +62,7 @@ const styles = StyleSheet.create({
 
 
     return (
+    <>
     <View style={styles.topContainer}>
       {/* Récupération de l'image correspondant à la météo */}
        <Image 
@@ -53,10 +71,15 @@ const styles = StyleSheet.create({
       />
       <View>
         {/* Description de la météo */}
-        <Text>{meteoActuelle?.weather[0].description}</Text>
+        <Text style={styles.description}>{meteoActuelle?.weather[0].description.toUpperCase()}</Text>
         {/* Récupération température arrondie */}
         <Text style={styles.temp}>{Math.round(meteoActuelle?.main.temp)}°C</Text>
       </View>
     </View>
+    <View style={styles.minMax}>
+      <Text style={styles.min}>Minimum: {Math.round(meteoActuelle?.main.temp_min)}</Text>
+      <Text style={styles.max}>Maximum: {Math.round(meteoActuelle?.main.temp_max)}</Text>
+    </View>
+    </>
     )
 }

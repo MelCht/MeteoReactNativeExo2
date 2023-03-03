@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { ActivityIndicator, StyleSheet, Text, ScrollView, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, ScrollView, View, ImageBackground } from 'react-native';
 import * as Location from "expo-location";
 import { useEffect, useState } from 'react';
 import TodayMeteo from "./component/todayMeteo";
@@ -9,17 +9,18 @@ import axios from "axios"
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'antiquewhite',
+    width: '100%',
     alignItem: 'center',
-    paddingLeft: '3%',
-    paddingRight: '3%'
   },
   meteoTitle: {
     fontSize: 20,
-    marginTop: '20%',
+    marginTop: '15%',
     alignSelf: 'center',
-    color: '#6d440e'
+    color: '#045A57'
   },
+  image: {
+    width: '100%'
+  }
 });
 
 export default function App() {
@@ -66,16 +67,18 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-          {/* Récupération nom de la ville */}
-          <Text style={styles.meteoTitle}>Météo à {data?.city?.name}</Text>
-        <StatusBar style="auto" />
-        <TodayMeteo
-        data={data} />
-        <NextMeteo
-        data={data} 
-        style= {styles.position}/>
-      </ScrollView>
+        <ImageBackground source={require('./assets/background.jpg')} style= {styles.image}>
+        <ScrollView>
+            {/* Récupération nom de la ville */}
+            <Text style={styles.meteoTitle}>Météo à {data?.city?.name}</Text>
+          <StatusBar style="auto" />
+          <TodayMeteo
+          data={data} />
+          <NextMeteo
+          data={data} 
+          style= {styles.position}/>
+        </ScrollView>
+      </ImageBackground>
     </View>
   );
 }

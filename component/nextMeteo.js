@@ -11,9 +11,11 @@ const styles = StyleSheet.create({
   marginTop: '3%',
   height: 75,
   width: '100%',
+  marginLeft: '3%'
  },
   day: {
     marginTop: '3%',
+    marginLeft: '3%'
   }
 });
     
