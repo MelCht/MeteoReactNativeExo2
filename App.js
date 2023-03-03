@@ -1,26 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, ScrollView, View } from 'react-native';
 import * as Location from "expo-location";
 import { useEffect, useState } from 'react';
-import Meteo from "./component/todayMeteo";
+import TodayMeteo from "./component/todayMeteo";
+import NextMeteo from './component/nextMeteo';
 import axios from "axios"
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'antiquewhite',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItem: 'center',
+    paddingLeft: '3%'
   },
   meteoTitle: {
     fontSize: 20,
     position: 'absolute',
     top: 75,
-  }
+    color: '#6d440e'
+  },
 });
 
 export default function App() {
-  const API_URL = (lat, lon) => `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=c0526873bd2aaf4e98ead041cf09c76c&lang=fr&units=metric`
+  const API_URL = (lat, lon) => `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=8160103deb46cbb771dfb59bff9e2e61&lang=fr&units=metric`
   // Récupération de la localisation de l'utilisateur (avec pop-up d'accord)
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState(null)
@@ -32,7 +34,7 @@ export default function App() {
         return
       } 
       const userLocation = await Location.getCurrentPositionAsync()
-      getMeteo(userLocation)
+      getCoords(userLocation)
     }
     getLocation()
   }, [])
@@ -43,7 +45,7 @@ export default function App() {
   // -> Météo du moment
   // -> Prévisions
 
-  const getMeteo = async (location) => {
+  const getCoords = async (location) => {
     try {
       const response = await axios.get(API_URL(location.coords.latitude, location.coords.longitude))
       setData(response.data)
@@ -63,11 +65,16 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-        {/* Récupération nom de la ville */}
-        <Text style={styles.meteoTitle}>Météo à {data?.city?.name}</Text>
-      <StatusBar style="auto" />
-      <Meteo
-      data={data} />
+      <ScrollView>
+          {/* Récupération nom de la ville */}
+          <Text style={styles.meteoTitle}>Météo à {data?.city?.name}</Text>
+        <StatusBar style="auto" />
+        <TodayMeteo
+        data={data} />
+        <NextMeteo
+        data={data} 
+        style= {styles.position}/>
+      </ScrollView>
     </View>
   );
 }

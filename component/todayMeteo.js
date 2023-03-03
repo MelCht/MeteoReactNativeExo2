@@ -1,15 +1,34 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 import { isSameDay } from "date-fns";
 
 const styles = StyleSheet.create({
-    icon: {
+  topContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    position: 'relative',
+    top: 65,
+    width: '95%',
+    height: '40%',
+    alignItems: 'center',
+    // borderRadius: 15,
+    // shadowColor: '#d5851a',
+    // shadowOpacity: 15,
+    // shadowOffset: { width: 2, height: 2 }, 
+    // shadowOpacity: 0.8,  
+    // elevation: 5 
+  }, 
+  icon: {
       width: 150,
       height: 150
+    },
+    temp: {
+      fontSize: 75,
+      color: '#6d440e',
     }
   });
   
-  export default function Meteo(props) {
+  export default function TodayMeteo(props) {
     const {data} = props;
     const [meteoActuelle, setMeteoActuelle] = useState(null)
     const [icon, setIcon] = useState()
@@ -31,16 +50,18 @@ const styles = StyleSheet.create({
 
 
     return (
-    <>
+    <View style={styles.topContainer}>
       {/* Récupération de l'image correspondant à la météo */}
        <Image 
       source={{ uri: icon }} 
       style={styles.icon}
       />
-      {/* Récupération température arrondie */}
-      <Text>{Math.round(meteoActuelle?.main.temp)}°C</Text>
-      {/* Description de la météo */}
-      <Text>{meteoActuelle?.weather[0].description}</Text>
-    </>
+      <View>
+        {/* Description de la météo */}
+        <Text>{meteoActuelle?.weather[0].description}</Text>
+        {/* Récupération température arrondie */}
+        <Text style={styles.temp}>{Math.round(meteoActuelle?.main.temp)}°C</Text>
+      </View>
+    </View>
     )
 }
