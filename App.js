@@ -11,12 +11,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'antiquewhite',
     alignItem: 'center',
-    paddingLeft: '3%'
+    paddingLeft: '3%',
+    paddingRight: '3%'
   },
   meteoTitle: {
     fontSize: 20,
-    position: 'absolute',
-    top: 75,
+    marginTop: '20%',
+    alignSelf: 'center',
     color: '#6d440e'
   },
 });

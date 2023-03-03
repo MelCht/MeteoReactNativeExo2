@@ -6,17 +6,12 @@ const styles = StyleSheet.create({
   topContainer: {
     display: 'flex',
     flexDirection: 'row',
-    position: 'relative',
-    top: 65,
-    width: '95%',
-    height: '40%',
+    height: '15%',
     alignItems: 'center',
-    // borderRadius: 15,
-    // shadowColor: '#d5851a',
-    // shadowOpacity: 15,
-    // shadowOffset: { width: 2, height: 2 }, 
-    // shadowOpacity: 0.8,  
-    // elevation: 5 
+    justifyContent: 'center',
+    marginLeft: '-7%',
+    marginTop: '10%',
+    marginBottom: '10%'
   }, 
   icon: {
       width: 150,

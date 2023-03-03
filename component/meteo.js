@@ -5,7 +5,10 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#d5851a',
     borderRadius: 50,
-    // height: '15%',
+    marginRight: 20,
+    width: 40,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   icon: {
     height: 30,

@@ -5,8 +5,15 @@ import { fr } from 'date-fns/locale'
 import Meteo from './meteo';
 
 const styles = StyleSheet.create({
-  width: {
-    width: '17%'
+ ligne: {
+  display: 'flex',
+  flexDirection: 'row',
+  marginTop: '3%',
+  height: 75,
+  width: '100%',
+ },
+  day: {
+    marginTop: '3%',
   }
 });
     
@@ -45,18 +52,20 @@ const styles = StyleSheet.create({
         setPrevision(newPrevisionsData)
       }, [data])
 
-  return (
-    <ScrollView
-    horizontal
-    showsHorizontalScrollIndicator={false}
-    
-    >
+  return (  
+    <>
       {prevision.map(p => (
-        <View style={styles.width}>
-          <Text>{p.day}</Text>
-          {p.data.map(m => <Meteo prev={m} />)}
+        <View>
+          <View>
+            <Text style={styles.day}>{p.day.toUpperCase()}</Text>
+          </View>
+          <ScrollView 
+          horizontal
+          style={styles.ligne}>
+            {p.data.map(m => <Meteo prev={m} />)}
+          </ScrollView>
         </View>
       ))}
-    </ScrollView>
+      </>
   )
 }
